@@ -1,0 +1,72 @@
+#sidebar{
+  z-index: 99;
+}
+
+md-sidenav {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  background: #fff;
+}
+
+ md-sidenav:not(.md-locked-open){
+  position: fixed;
+}
+
+md-backdrop.md-sidenav-backdrop{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+md-sidenav  > * {
+  min-width: 218px;
+}
+
+md-sidenav header img{
+  width: 165px;
+  display: block;
+  margin: 30px auto 15px;
+}
+
+md-sidenav md-content {
+  background: transparent;
+}
+
+md-sidenav md-content ul {
+  list-style: none;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin-top: 20px
+}
+
+md-sidenav md-content ul > li:nth-child(1) {
+  border-top: none;
+  margin-top: 0;
+}
+
+md-sidenav md-content ul > li {
+  margin: 0;
+}
+
+md-sidenav md-content ul > li > .md-button {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  text-align: left !important;
+  padding: 6px 30px;
+}
+
+md-sidenav md-content ul > li > .md-button,
+md-sidenav md-content ul > li > .md-button > span{
+  display: block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+md-sidenav md-content ul > li > .md-button > i{
+  font-size: 22px;
+  margin-top: 6px;
+  float: right;
+}

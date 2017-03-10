@@ -1,0 +1,21 @@
+<link href="src/directives/sidebar/style.css" rel="stylesheet" type="text/css">
+
+<md-sidenav
+    md-component-id="left"
+    hide-print>
+
+  <header>
+    
+  </header>
+
+  <md-content id="main-menu" layout="row" role="navigation">
+    <ul flex>
+      <li>
+        <md-button ui-sref="app.example" href="/example" ng-click="toggleSidebar()">
+          <span>Example</span>
+          <!-- <i class="fa fa-address-card-o"></i> -->
+        </md-button>
+      </li>
+    </ul>
+  </md-content>
+</md-sidenav>

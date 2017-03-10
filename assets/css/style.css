@@ -1,0 +1,22 @@
+a {
+  text-decoration: none;
+  font-weight: 400;
+  -webkit-transition: border-bottom 0.35s;
+  -moz-transition: border-bottom 0.35s;
+  -ms-transition: border-bottom 0.35s;
+  -o-transition: border-bottom 0.35s;
+  transition: border-bottom 0.35s;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin-left: 16px;
+  padding: 0;
+  margin-top: 3px;
+  list-style-position: inside;
+  display: list-item;
+}

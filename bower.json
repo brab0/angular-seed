@@ -1,0 +1,29 @@
+{
+    "name": "angular-seed",
+    "authors": [
+        "Rodrigo Brabo <brabo.rodrigo@gmail.com>"
+    ],
+    "description": "",
+    "main": "",
+    "moduleType": [],
+    "license": "MIT",
+    "homepage": "index.html",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "^3.1.1",
+        "angular": "^1.6.1",
+        "angular-animate": "^1.6.1",
+        "angular-aria": "^1.6.1",
+        "angular-messages": "^1.6.1",
+        "angular-material": "^1.1.1",
+        "angular-ui-router": "^0.4.2",
+        "angular-sanitize": "^1.6.1",
+        "font-awesome": "^4.7.0"
+    }
+}
