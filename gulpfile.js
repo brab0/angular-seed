@@ -28,8 +28,8 @@ gulp.task('default', function() {
 gulp.task('modules-styles', function() {
    return gulp.src('assets/css/**/*.css')
       .pipe(csso())
-      .pipe(concat(config.modules.name + '.concat.js'))
-      .pipe(rename(config.modules.name + '.min.css'))
+      .pipe(concat('modules.concat.css'))
+      .pipe(rename(Date.now() + '.modules.min.css'))
       .pipe(gulp.dest(config.modules.dest));
 });
 
@@ -39,8 +39,8 @@ gulp.task('modules-scripts', function() {
          presets: ['es2015']
       }))
       .pipe(ngEmbedTemplates({ basePath: './' }))
-      .pipe(concat(config.modules.name + '.concat.js'))
-      .pipe(rename(config.modules.name + '.min.js'))
+      .pipe(concat('modules.concat.js'))
+      .pipe(rename(Date.now() + '.modules.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest(config.modules.dest));
 });
@@ -56,30 +56,26 @@ gulp.task('directives-scripts', function() {
          return '<style>' + fs.readFileSync(embed, 'utf8') + '</style>';
       }))
       .pipe(replace(/\n/g, ''))
-      .pipe(concat(config.directives.name+'.concat.js'))
-      .pipe(rename(config.directives.name + '.min.js'))
+      .pipe(concat('directives.concat.js'))
+      .pipe(rename(Date.now() + '.directives.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest(config.directives.dest));
 });
 
 gulp.task("vendor-scripts", function() {
-   return gulp.src(mainBowerFiles({
-         filter: /(.*)\.js$/
-      }, {
-         base: config.vendor.src
-      }))
+   return gulp.src(mainBowerFiles('**/*.js'))
       .pipe(babel({
          presets: ['es2015']
       }))
-      .pipe(concat(config.vendor.name +'.concat.js'))
-      .pipe(rename(config.vendor.name + '.min.js'))
+      .pipe(concat(Date.now() + '.vendor.min.js'))
+      .pipe(uglify())
       .pipe(gulp.dest(config.vendor.dest));
 });
 
 gulp.task('vendor-styles', function() {
    return gulp.src(config.vendor.src + '/*.min.css')
-      .pipe(concat(config.vendor.name + '.concat.css'))
-      .pipe(rename(config.vendor.name + '.min.css'))
+      .pipe(concat('vendor.concat.css'))
+      .pipe(rename(Date.now() + '.vendor.min.css'))
       .pipe(gulp.dest(config.vendor.dest));
 });
 
@@ -99,65 +95,60 @@ gulp.task("generate-index", function() {
    return gulp.src('./index.html')
       .pipe(
          inject(
-            gulp.src(config.vendor.dest + config.vendor.name + '.min.css', {
+            gulp.src(config.vendor.dest + '*.min.css', {
                read: false
             }), {
                name: 'vendor-styles',
                transform: function (filepath, file, i, length) {
-                  let newPath = filepath.split('/');
-                  return '<link rel="stylesheet" type="text/css" href="' + config.vendor.name + '/' + newPath[newPath.length - 1] + '?v=' + config.vendor.version + '">';
+                  return '<link rel="stylesheet" type="text/css" href="' + filepath + '">';
                }
             }
          )
       )
       .pipe(
          inject(
-            gulp.src(config.modules.dest + config.modules.name + '.min.css', {
+            gulp.src(config.modules.dest + '*.min.css', {
                read: false
             }), {
                name: 'modules-styles',
                transform: function (filepath, file, i, length) {
-                  let newPath = filepath.split('/');
-                  return '<link rel="stylesheet" type="text/css" href="' + config.modules.name + '/' + newPath[newPath.length - 1] + '?v=' + config.modules.version + '">';
+                  return '<link rel="stylesheet" type="text/css" href="' + filepath + '">';
                }
             }
          )
       )
       .pipe(
          inject(
-            gulp.src(config.vendor.dest + config.vendor.name + '.min.js', {
+            gulp.src(config.vendor.dest + '*.min.js', {
                read: false
             }), {
                name: 'vendor-scripts',
                transform: function (filepath, file, i, length) {
-                  let newPath = filepath.split('/');
-                  return '<script type="text/javascript" src="' + config.vendor.name + '/' + newPath[newPath.length - 1] + '?v=' + config.vendor.version + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath + '"></script>';
                }
             }
          )
       )
       .pipe(
          inject(
-            gulp.src(config.modules.dest + config.modules.name + '.min.js', {
+            gulp.src(config.modules.dest + '*.min.js', {
                read: false
             }), {
                name: 'modules-scripts',
-               transform: function (filepath, file, i, length) {
-                  let newPath = filepath.split('/');
-                  return '<script type="text/javascript" src="' + config.modules.name + '/' + newPath[newPath.length - 1]  + '?v=' + config.modules.version + '"></script>';
+               transform: function (filepath, file, i, length) {                  
+                  return '<script type="text/javascript" src="' + filepath + '"></script>';
                }
             }
          )
       )
       .pipe(
          inject(
-            gulp.src(config.directives.dest + config.directives.name + '.min.js', {
+            gulp.src(config.directives.dest + '*.min.js', {
                read: false
             }), {
                name: 'directives-scripts',
                transform: function (filepath, file, i, length) {
-                  let newPath = filepath.split('/');
-                  return '<script type="text/javascript" src="' + config.directives.name + '/' + newPath[newPath.length - 1] + '?v=' + config.directives.version + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath + '"></script>';
                }
             }
          )
